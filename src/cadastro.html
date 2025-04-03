@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cadastro</title>
+    <link rel="stylesheet" href="./assets/css/cadastro.css">
+</head>
+
+<body>
+    <header class="head">
+        <div class="logo"></div>
+    </header>
+    <div class="conteiner">
+        <section class="ilustration">
+            <picture>
+                <source media="(min-width: 950px)" srcset="./assets/images/undraw_forms_1ciz-400w.png">
+
+                <img src="./assets/images/undraw_forms_1ciz-300w.png" alt="Ilustração de pagamentos digitais">
+            </picture>
+        </section>
+        <section class="box">
+            <h1>Olá de novo!</h1>
+            <p>Já tem uma conta? <a href="index.html" rel="next" hreflang="pt-AO">Login</a></p>
+            <form class="form cadastro">
+                <label for="nome">O seu nome</label>
+                <input type="text" name="nome" id="nome" class="input-user small" required>
+
+                <label for="email">O seu endereço de email</label>
+                <input type="email" name="email" id="email" class="input-user small" required>
+
+                <label for="telefone">O seu número de telemóvel</label>
+                <input type="tel" name="telefone" id="telefone" class="input-user small" required>
+
+                <label for="date">A sua data de nascimento</label>
+                <input type="text" name="date" id="date" class="input-user" placeholder="AAAA/MM/DD" required>
+
+                <label for="password">A sua password</label>
+                <input type="password" name="password" id="password" class="input-user" required>
+
+                <input type="submit" value="Cadastrar" class="btn">
+            </form>
+        </section>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+    <script>
+          $('#telefone').mask('+244 000-000-000')
+          $('#date').mask('0000/00/00');
+    </script>
+</body>
+
+</html>

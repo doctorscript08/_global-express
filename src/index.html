@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/login.css">
+    <title>login</title>
+</head>
+<body>
+    <header class="head">
+        <div class="logo"></div>
+    </header>
+    <div class="conteiner">
+        <section class="ilustration">
+            <picture>
+                <source media="(min-width: 950px)" srcset="./assets/images/undraw_credit-card-payments_y0vn-400w.png">
+
+                <img src="./assets/images/undraw_credit-card-payments_y0vn-300w.png" alt="Ilustração de pagamentos digitais">
+            </picture>
+        </section>
+        <section class="box">
+            <h1>Olá de novo!</h1>
+            <p>Não tem uma conta? <a href="cadastro.html" rel="next" hreflang="pt-AO">Cadastrar-se</a></p>
+            <form class="form login">
+                <label for="email">O seu endereço de email</label>
+                <input type="email" name="email" id="email" class="input-user" required>
+                <label for="password">A sua password</label>
+                <input type="password" name="password" id="password" class="input-user" required>
+                <input type="submit" value="Entrar" class="btn">
+            </form>
+            <p id="forget-password">
+                <a href="#" rel="next" hreflang="pt-AO">Esqueceu-se da password?</a>
+            </p>
+        </section>
+    </div>
+</body>
+</html>
