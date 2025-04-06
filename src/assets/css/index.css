@@ -24,8 +24,26 @@
 
 body {
     width: 100vw;
-    height: 100vh;
     font: normal 1em var(--body-font);
+}
+
+h1 {
+    font-family: var(--title-font);
+    font-size: 1.75em;
+}
+
+h2, h3 {
+    font-family: var(--title-font);
+    font-size: 1.5em;
+}
+
+p {
+    font-family: var(--body-font);
+    font-size: 1em;
+}
+
+a {
+    text-decoration: none;
 }
 
 .head {
@@ -35,11 +53,117 @@ body {
     background-color: var(--azul-electrico);
 }
 
-.logo {
+.profile {
     width: 65px;
     height: 65px;
     border-radius: 50%;
     background-color: var(--branco);
+}
+
+.body {
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.card {
+    min-width: 250px;
+    max-width: 500px;
+    height: 160px;
+    padding: 10px;
+    margin: auto;
+    border-radius: 15px;
+    color: var(--branco);
+    font-weight: 600;
+    letter-spacing: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    background-color: var(--cinza-claro);
+    background-image: url("../images/undraw_credit-card_t6qm.svg");
+    background-repeat: no-repeat;
+    background-position: 10px 10px;
+    background-size: contain;
+}
+
+.card div {
+    width: 100%;
+    text-align: center;
+}
+
+.global-title {
+    font-family: var(--title-font);
+    font-size: 1.5em;
+}
+
+.card-number {
+    font-size: 1.2em;
+}
+
+.view-balance {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.view-balance span {
+    font-size: 1.2em;
+    font-weight: 600;
+    text-align: center;
+}
+
+.view-balance .balance {
+    margin-right: 10px;
+}
+
+.view-balance .show-hide {
+    cursor: pointer;
+}
+
+.actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.actions a {
+    width: 45%;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.actions a button {
+    width: 100%;
+    color: var(--branco);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px;
+    background-color: transparent;
+}
+
+.actions a:hover button {
+    color: #000;
+}
+
+.hitory-transactions {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hitory-transactions p {
+    width: 90%;
+    text-align: left;
 }
 
 .btn {
@@ -61,18 +185,25 @@ body {
     background-color: var(--branco);
 }
 
+.rodape {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: var(--azul-electrico);
+}
+
+.rodape a {
+    color: var(--branco);
+}
+
+.rodape span {
+    cursor: pointer;
+}
+
 @media screen and (max-width: 480px) {
-    h1 {
-        font-size: 1.75em;
-    }
-
-    h2 {
-        font-size: 1.5em;
-    }
-
-    p {
-        font-size: 1em;
-    }
+    
 }
 
 @media screen and (min-width: 481px) and (max-width: 768px) {
@@ -84,7 +215,7 @@ body {
         font-size: 2.25em;
     }
 
-    h2 {
+    h2, h3 {
         font-size: 2em;
     }
 
@@ -102,7 +233,7 @@ body {
         font-size: 3em;
     }
 
-    h2 {
+    h2, h3 {
         font-size: 2.5em;
     }
 

@@ -1,0 +1,100 @@
+@charset "UTF-8";
+@import url('./index.css');
+
+.box {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    background-color: var(--branco);
+}
+
+.close {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    color: var(--branco);
+}
+
+.user-data {
+    width: 100%;
+    height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.profile-foto {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--cinza-claro);
+}
+
+.user-name {
+    font-size: 1.3em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.operations {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.option-card {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px;
+    color: var(--branco);
+    background-color: var(--cinza-claro);
+    transition: all .5s ease-out;
+}
+
+.option-card:hover {
+    transform: scale(1.1);
+}
+
+.option-card div {
+    display: flex;
+}
+
+.option-card .material-icons {
+    font-size: 2em;
+}
+
+.option-card h3 {
+    font-size: 1.3em;
+    letter-spacing: 3px;
+}
+
+.option-card p {
+    text-align: justify;
+    font-size: 1em;
+}
+
+.option-card .right {
+    margin-right: 5px;
+}
+
+.hidde {
+    display: none;
+}

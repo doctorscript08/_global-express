@@ -1,0 +1,26 @@
+@charset "UTF-8";
+@import url('./index.css');
+
+.body {
+    height: calc(100vh - 150px);
+}
+
+.body a {
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.body a button {
+    width: 100%;
+    color: var(--branco);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px;
+    background-color: transparent;
+}
+
+.body a:hover button {
+    color: #000;
+}
