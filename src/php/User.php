@@ -4,7 +4,7 @@
     class User {
         private $id, $name, $email, $password, $bi, $tel_number, $birth, $registration_date, $wallet;
 
-        public function __construct($id = null, $name = null, $email = null, $password = null, $bi = null, $tel_number = null, $birth = null, $registration_date = null, $connector = null) {
+        public function __construct($id = null, $name = null, $email = null, $password = null, $bi = null, $tel_number = null, $birth = null, $registration_date = null) {
             $this->id = $id;
             $this->name = $name;
             $this->email = $email;
@@ -56,6 +56,25 @@
                 }
             }
         }*/
+
+        public function upload($connector, $pay_value, $payment_method, $upload_date) {
+            $id =$this->search_id($this->email, $this->password, $connector);
+
+            if (!empty($connector)) {
+                $sql = $connector->query("INSERT INTO UPLOADS (value, method, status, upload_date, user_id) VALUES ('{$pay_value}', '{$payment_method}', 'Aprovado', '{$upload_date}', '$id')");
+
+                $search_balance = $connector->query("SELECT balance FROM WALLETS WHERE user_id = '$id'");
+
+                $actual_balance = mysqli_fetch_assoc($search_balance)['balance'];
+
+                $actual_balance += $pay_value;
+
+                $update_balance = $connector->query("UPDATE WALLETS SET balance = '$actual_balance' WHERE user_id = '$id' limit 1");
+                $update_last_date = $connector->query("UPDATE WALLETS SET last_update = '$upload_date' WHERE user_id = '$id' limit 1");
+
+                return $update_last_date ? true : false;
+            }
+        }
 
         private function search_id($email, $password, $connector) {
             $sql = $connector->query("SELECT id_user FROM USERS WHERE email = '{$email}' and password = '{$password}'");

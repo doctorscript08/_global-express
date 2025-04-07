@@ -39,25 +39,28 @@
     </header>
     <main class="body">
         <h1>Carregamentos</h1>
-        <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+        <form method="post">
             <label for="pay_value">Valor a carregar</label>
             <input type="text" name="pay_value" id="pay_value" class="input-user" require placeholder="ex: 10.000,00">
 
             <label for="payment_method">Método de pagamento</label>
             <select name="payment_method" id="payment_method" class="input-user">
-                <option>Transferência bancária</option>
-                <option>Cartão de crédito</option>
-                <option>Cartão de dédito</option>
+                <option value="M1">Cartão de crédito</option>
+                <option value="M2">Cartão de dédito</option>
             </select>
 
-            <input type="submit" value="Continuar" onclick="javascript:location.href=''" class="btn">
-
-            <?php
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $connector = Connection::connect();
-            }
-            ?>
+            <input type="submit" value="Continuar" class="btn">
         </form>
+
+        <?php 
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $_SESSION['pay_value'] = $_POST['pay_value'];
+                $_SESSION['payment_method'] = $_POST['payment_method'];
+            
+                header('Location: payment_methods.php');
+                exit();
+            }
+        ?>
     </main>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
