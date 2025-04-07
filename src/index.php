@@ -4,9 +4,9 @@
     require_once('./php/User.php');
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $user = new User("", "", $_POST['email'], $_POST['password'], "", "", "", "", Connection::connect());
+        $user = new User("", "", $_POST['email'], $_POST['password'], "", "", "", "");
 
-        if ($user->login()) {
+        if ($user->login(Connection::connect())) {
             $_SESSION['email'] = $_POST['email'];
             $_SESSION['password'] = $_POST['password'];
 

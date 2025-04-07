@@ -43,10 +43,10 @@
             </span>
         </section>
         <section class="actions">
-            <a href="" class="btn">
+            <a href="transfer.php" class="btn">
                 <button>Enviar</button>
             </a>
-            <a href="" class="btn">
+            <a href="uploads.php" class="btn">
                 <button>Carregar</button>
             </a>
         </section>

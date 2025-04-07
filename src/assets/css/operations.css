@@ -1,0 +1,15 @@
+@charset "UTF-8";
+@import url('./index.css');
+
+.material-icons {
+    font-size: 2em;
+    color: var(--branco);
+}
+
+.body h1 {
+    text-align: center;
+}
+
+label {
+    margin-left: 15px;
+}

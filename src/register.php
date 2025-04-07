@@ -5,9 +5,9 @@
     date_default_timezone_set('Africa/Luanda');
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $user = new User("", $_POST['name'], $_POST['email'], $_POST['password'], "", $_POST['tel_number'], $_POST['date'], date('Y-m-d H:i:s'), Connection::connect());
+        $user = new User("", $_POST['name'], $_POST['email'], $_POST['password'], "", $_POST['tel_number'], $_POST['date'], date('Y-m-d H:i:s'));
 
-        if ($user->register()) {
+        if ($user->register(Connection::connect())) {
             $_SESSION['name'] = $_POST['name'];
             $_SESSION['email'] = $_POST['email'];
             $_SESSION['password'] = $_POST['password'];

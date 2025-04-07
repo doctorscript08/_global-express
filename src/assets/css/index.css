@@ -50,6 +50,9 @@ a {
     width: 100%;
     height: 100px;
     padding: 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     background-color: var(--azul-electrico);
 }
 
