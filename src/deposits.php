@@ -2,7 +2,6 @@
     session_start();
     require_once('./php/Connection.php');
     require_once('./php/User.php');
-    date_default_timezone_set('Africa/Luanda');
 
     if (isset($_SESSION['name'], $_SESSION['email'], $_SESSION['password'])) {
         $name = $_SESSION['name'];
@@ -32,7 +31,7 @@
 <body>
     <header class="head">
         <div class="back">
-            <a onclick="javacript:history.go(-1)">
+            <a onclick="javacript:location.href='home.php'">
                 <span class="material-icons">
                     arrow_back
                 </span>
@@ -41,7 +40,16 @@
     </header>
     <main class="body">
         <h1>Carregamentos</h1>
-        <form action="<?=$_SERVER['PHP_SELF']?>" method="post">
+        <form method="post" action="<?=$_SERVER['PHP_SELF']?>">
+            <label for="pay_value">Valor a carregar</label>
+            <input type="text" name="pay_value" id="pay_value" class="input-user" require placeholder="ex: 10.000,00">
+
+            <label for="payment_method">Método de pagamento</label>
+            <select name="payment_method" id="payment_method" class="input-user">
+                <option value="M1">Cartão de crédito</option>
+                <option value="M2">Cartão de dédito</option>
+            </select>
+
             <label for="card_number">Número do cartão</label>
             <input type="text" name="card_number" id="card_number" class="input-user" require placeholder="0000 0000 0000 0000">
 
@@ -49,48 +57,41 @@
             <input type="text" name="validation_date" id="validation_date" class="input-user" placeholder="MM-AAAA" required>
             
             <label for="cvv">CVV</label>
-            <input type="number" name="cvv" id="cvv" class="input-user" placeholder="000" required>
+            <input type="text" name="cvv" id="cvv" class="input-user" placeholder="000" required>
 
             <input type="submit" value="Carregar" class="btn">
         </form>
-
-        <?php
-            if (isset($_SESSION['payment_method'], $_SESSION['pay_value'])) {
-                $pay_value = $_SESSION['pay_value'];
-                $payment_method = $_SESSION['payment_method'];
-                $card_number = $_POST['card_number'];
-                $validation_date = $_POST['validation_date'];
-                $cvv = $_POST['cvv'];
-                $year_date = (int) substr($validation_date, 0, 3);
-                $month_date = (int) substr($validation_date, 5, 2);
-                $upload_date = date('Y-m-d H:i:s');
-
-                if ((strlen($card_number) === 16) && (strlen($validation_date) === 7) && (strlen($cvv) === 3) && ($year_date >= date('Y') && ($month_date >= date('m')))) {
-                    $user = new User(0, '', $email, $password);
-
-                    if ($user->upload(Connection::connect(), $pay_value, $payment_method, $upload_date)) {
-                        echo "
-                            <script>
-                                alert('Carregamento efectuado com sucesso!')
-                                window.location.href='home.php'
-                            </script>
-                        ";
-                    } else {
-                        echo "
-                            <script>
-                                alert('Falha ao efectuar carregamento!')
-                                window.location.href='home.php'
-                            </script>
-                        ";
-                    }
-                }
-            }
-        ?>
     </main>
+
+    <?php 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $user = new User(0, '', $email, $password);
+            $pay_value = formatCurrencyToFloat($_POST['pay_value']);
+
+            if ($user->deposit(Connection::connect(), $pay_value, $_POST['payment_method'], 'Aprovado')) {
+                header('Location: http://localhost/_global-express/src/home.php');
+                exit();
+            } else {
+                echo "
+                    <script>
+                        alert('Falha ao efectuar carregamento!')
+                    </script>
+                ";
+            }
+        }
+
+        function formatCurrencyToFloat($value) {
+            $value = str_replace('.', '', $value);
+            $value = str_replace(',', '.', $value);
+
+            return (float) $value;
+        }
+    ?>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
     <script>
+        $('#pay_value').mask("#.##0,00", {reverse: true});
         $('#card_number').mask('0000 0000 0000 0000');
         $('#validation_date').mask('00-0000');
         $('#cvv').mask('000');

@@ -47,14 +47,6 @@
             <input type="text" name="value" id="value" class="input-user" require placeholder="ex: 10.000,00">
 
             <input type="submit" value="Enviar" class="btn">
-
-            <?php 
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $connector = Connection::connect();
-
-                    
-                }
-            ?>
         </form>
     </main>
 

@@ -46,7 +46,7 @@
             <a href="transfer.php" class="btn">
                 <button>Enviar</button>
             </a>
-            <a href="uploads.php" class="btn">
+            <a href="deposits.php" class="btn">
                 <button>Carregar</button>
             </a>
         </section>

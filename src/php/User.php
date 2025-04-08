@@ -1,5 +1,6 @@
 <?php
     require_once('Wallet.php');
+    require_once('Deposit.php');
 
     class User {
         private $id, $name, $email, $password, $bi, $tel_number, $birth, $registration_date, $wallet;
@@ -31,9 +32,9 @@
                 $sql = $connector->query("INSERT INTO USERS (name, email, tel_number, birth, password, registration_date) VALUES ('{$this->name}', '{$this->email}', '{$this->tel_number}', '{$this->birth}', '{$this->password}', '{$this->registration_date}')");
 
                 if ($sql) {
-                    $this->wallet = new Wallet($this->search_id($this->email, $this->password, $connector), $connector);
+                    $this->wallet = new Wallet($this->search_id($this->email, $this->password, $connector));
 
-                    return $this->wallet->create_wallet() ? true : false;
+                    return $this->wallet->create_wallet($connector) ? true : false;
                 } else {
                     return false;
                 }
@@ -45,34 +46,17 @@
             }
         }
 
-        /*public function transfer($connector, $transfer_value, $receiving_number, $email, $password) {
-            if (!empty($connector) && ($transfer_value > 0)) {
-                
+        public function deposit($connector, $amount_to_be_loaded, $method, $status) {
+            if (!empty($connector) && (!empty($this->email) && (!empty($this->password)))) {
+                $this->wallet = new Wallet($this->search_id($this->email, $this->password, $connector));
 
-                if ($sender_balance >= $transfer_value) {
-                   
+                if ($this->wallet->load_wallet($connector, $amount_to_be_loaded)) {
+                    $deposit = new Deposit($amount_to_be_loaded, $method, $status, $this->search_id($this->email, $this->password, $connector));
+
+                    return $deposit->register_deposit($connector) ? true : false;
                 } else {
-
+                    return false;
                 }
-            }
-        }*/
-
-        public function upload($connector, $pay_value, $payment_method, $upload_date) {
-            $id =$this->search_id($this->email, $this->password, $connector);
-
-            if (!empty($connector)) {
-                $sql = $connector->query("INSERT INTO UPLOADS (value, method, status, upload_date, user_id) VALUES ('{$pay_value}', '{$payment_method}', 'Aprovado', '{$upload_date}', '$id')");
-
-                $search_balance = $connector->query("SELECT balance FROM WALLETS WHERE user_id = '$id'");
-
-                $actual_balance = mysqli_fetch_assoc($search_balance)['balance'];
-
-                $actual_balance += $pay_value;
-
-                $update_balance = $connector->query("UPDATE WALLETS SET balance = '$actual_balance' WHERE user_id = '$id' limit 1");
-                $update_last_date = $connector->query("UPDATE WALLETS SET last_update = '$upload_date' WHERE user_id = '$id' limit 1");
-
-                return $update_last_date ? true : false;
             }
         }
 
