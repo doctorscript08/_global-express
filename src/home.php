@@ -1,10 +1,18 @@
 <?php
     session_start();
+    require_once('./php/Connection.php');
+    require_once('./php/User.php');
+    
+    $user = new User(0, '', $_SESSION['email'], $_SESSION['password']);
 
     if (isset($_SESSION['name'], $_SESSION['email'], $_SESSION['password'])) {
-
+        $name = $_SESSION['name'];
+        $email = $_SESSION['email'];
+        $password = $_SESSION['password'];
     } elseif (isset($_SESSION['email'], $_SESSION['password'])) {
-
+        $email = $_SESSION['email'];
+        $password = $_SESSION['password'];
+        $name = $user->search_name($email, $password, Connection::connect());
     } else {
         header('Location: http://localhost/_global-express/src/');
         exit();

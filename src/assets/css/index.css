@@ -65,6 +65,8 @@ a {
 
 .body {
     width: 100%;
+    height: calc(100vh - 150px);
+    overflow-y: auto;
     padding: 15px;
     display: flex;
     flex-direction: column;
@@ -203,10 +205,6 @@ a {
 
 .rodape span {
     cursor: pointer;
-}
-
-@media screen and (max-width: 480px) {
-    
 }
 
 @media screen and (min-width: 481px) and (max-width: 768px) {

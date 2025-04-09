@@ -79,6 +79,45 @@
             }
         }
 
+        public function consult_deposits($connector) {
+            if (!empty($connector) && (!empty($this->email)) && (!empty($this->password))) {
+                $sql = $connector->query("SELECT id_deposit, value, method, status, deposit_date FROM DEPOSITS WHERE user_id = '{$this->search_id_with_email_password($this->email, $this->password, $connector)}'");
+
+                $deposit_data = [];
+                $i = 0;
+
+                while ($deposits = mysqli_fetch_assoc($sql)) {
+                    $deposit_data[$i] = $deposits;
+                    $i++;
+                }
+
+                $i = 0;
+                return $deposit_data;
+            }
+        }
+
+        public function consult_transfers($connector) {
+            if (!empty($connector) && (!empty($this->email)) && (!empty($this->password))) {
+                $sql = $connector->query("SELECT id_transfer, amount_to_transfer, status, transfer_date, s.name as 'sender', r.name as 'receiving'
+                FROM TRANSFERS
+                join users as s on s.id_user = sender_user
+                join users as r on r.id_user = receiving_user 
+                WHERE sender_user = '{$this->search_id_with_email_password($this->email, $this->password, $connector)}' OR receiving_user = '{$this->search_id_with_email_password($this->email, $this->password, $connector)}' 
+                order by id_transfer");
+
+                $transfer_data = [];
+                $i = 0;
+
+                while ($transfers = mysqli_fetch_assoc($sql)) {
+                    $transfer_data[$i] = $transfers;
+                    $i++;
+                }
+
+                $i = 0;
+                return $transfer_data;
+            }
+        }
+
         private function search_id_with_email_password($email, $password, $connector) {
             $sql = $connector->query("SELECT id_user FROM USERS WHERE email = '{$email}' and password = '{$password}'");
 
@@ -91,36 +130,10 @@
             return mysqli_fetch_assoc($sql)['id_user'];
         }
 
-        public function getId() {
-            return $this->id;
-        }
+        public function search_name($email, $password, $connector) {
+            $sql = $connector->query("SELECT name FROM USERS WHERE email = '{$email}' and password = '{$password}'");
 
-        public function getName() {
-            return $this->name;
-        }
-
-        public function getEmail() {
-            return $this->email;
-        }
-
-        public function getPassword() {
-            return $this->password;
-        }
-
-        public function getBi() {
-            return $this->bi;
-        }
-
-        public function getTel_number() {
-            return $this->tel_number;
-        }
-
-        public function getBirth() {
-            return $this->birth;
-        }
-
-        public function getRegistration_date() {
-            return $this->registration_date;
+            return mysqli_fetch_assoc($sql)['name'];
         }
     }
 ?>

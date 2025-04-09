@@ -14,7 +14,7 @@
 
         public function register_deposit($connector) {
             if ((!empty($connector)) && (!empty($this->user_id))) {
-                $sql = $connector->query("INSERT INTO DEPOSITS (value, method, status, uploud_date, user_id) VALUES ('{$this->value}', '{$this->method}', '{$this->status}', '{$this->deposit_date}', '{$this->user_id}')");
+                $sql = $connector->query("INSERT INTO DEPOSITS (value, method, status, deposit_date, user_id) VALUES ('{$this->value}', '{$this->method}', '{$this->status}', '{$this->deposit_date}', '{$this->user_id}')");
 
                 return $sql ? true : false;
             }

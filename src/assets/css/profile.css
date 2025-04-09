@@ -70,11 +70,13 @@
 }
 
 .option-card:hover {
-    transform: scale(1.1);
+    transform: scale(0.9);
 }
 
 .option-card div {
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .option-card .material-icons {
