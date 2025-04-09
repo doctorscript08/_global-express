@@ -58,14 +58,14 @@
                 <button>Carregar</button>
             </a>
         </section>
-        <sections class="hitory-transactions">
+        <section class="hitory-transactions">
             <span class="material-icons">
                 history
             </span>
             <p>
                 <span>Ainda sem transações</span>
             </p>
-        </sections>
+        </section>
     </main>
     <footer class="rodape">
         <a href="home.php">
