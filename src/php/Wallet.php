@@ -10,7 +10,7 @@
         }
 
         public function create_wallet($connector) {
-            if (($this->user_id !== null) && ($this->user_id !== 0) && (!empty($this->user_id)) && (!empty($this->connector))) {
+            if (($this->user_id !== null) && ($this->user_id !== 0) && (!empty($this->user_id)) && (!empty($connector))) {
                 $sql = $connector->query("INSERT INTO WALLETS (last_update, user_id) VALUES ('{$this->last_update}', '{$this->user_id}')");
 
                 return $sql ? true : false;
@@ -38,6 +38,27 @@
                 }
 
                 return $this->balance;
+            }
+        }
+
+        public function transfer($connector, $amount_to_transfer) {
+            if ((!empty($connector)) && (!empty($amount_to_transfer))) {
+                $transfer = ($this->check_balance($connector) - $amount_to_transfer);
+                $transfer = $transfer < 0 ? $transfer * - 1 : $transfer * 1;
+
+                $sql = $connector->query("UPDATE WALLETS SET balance = '{$transfer}', last_update = '{$this->last_update}' WHERE user_id = '{$this->user_id}'");
+
+                return $sql ? true : false;
+            }
+        }
+
+        public function add_transfer_value($connector, $amount_to_be_added) {
+            if (!empty($connector) && (!empty($amount_to_be_added))) {
+                $amount_to_be_added += $this->check_balance($connector);
+
+                $sql = $connector->query("UPDATE WALLETS SET balance = '{$amount_to_be_added}', last_update = '{$this->last_update}' WHERE user_id = '{$this->user_id}'");
+
+                return $sql ? true : false;
             }
         }
     }

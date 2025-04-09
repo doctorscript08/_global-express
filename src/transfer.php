@@ -1,6 +1,7 @@
 <?php
     session_start();
     require_once('./php/Connection.php');
+    require_once('./php/User.php');
 
     if (isset($_SESSION['name'], $_SESSION['email'], $_SESSION['password'])) {
         $name = $_SESSION['name'];
@@ -49,6 +50,31 @@
             <input type="submit" value="Enviar" class="btn">
         </form>
     </main>
+
+    <?php
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $user = new User(0, '', $email, $password);
+            $amount_to_transfer = formatCurrencyToFloat($_POST['value']);
+
+            if ($user->transfer(Connection::connect(), $amount_to_transfer, $_POST['addressee_number'], 'Concluída')) {
+                header('Location: http://localhost/_global-express/src/home.php');
+                exit();
+            } else {
+                echo "
+                    <script>
+                        alert('Falha ao efectuar carregamento!')
+                    </script>
+                ";
+            }
+        }
+
+        function formatCurrencyToFloat($value) {
+            $value = str_replace('.', '', $value);
+            $value = str_replace(',', '.', $value);
+
+            return (float) $value;
+        }
+    ?>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>

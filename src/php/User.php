@@ -1,6 +1,7 @@
 <?php
     require_once('Wallet.php');
     require_once('Deposit.php');
+    require_once('Transfer.php');
 
     class User {
         private $id, $name, $email, $password, $bi, $tel_number, $birth, $registration_date, $wallet;
@@ -32,7 +33,7 @@
                 $sql = $connector->query("INSERT INTO USERS (name, email, tel_number, birth, password, registration_date) VALUES ('{$this->name}', '{$this->email}', '{$this->tel_number}', '{$this->birth}', '{$this->password}', '{$this->registration_date}')");
 
                 if ($sql) {
-                    $this->wallet = new Wallet($this->search_id($this->email, $this->password, $connector));
+                    $this->wallet = new Wallet($this->search_id_with_email_password($this->email, $this->password, $connector));
 
                     return $this->wallet->create_wallet($connector) ? true : false;
                 } else {
@@ -48,10 +49,10 @@
 
         public function deposit($connector, $amount_to_be_loaded, $method, $status) {
             if (!empty($connector) && (!empty($this->email) && (!empty($this->password)))) {
-                $this->wallet = new Wallet($this->search_id($this->email, $this->password, $connector));
+                $this->wallet = new Wallet($this->search_id_with_email_password($this->email, $this->password, $connector));
 
                 if ($this->wallet->load_wallet($connector, $amount_to_be_loaded)) {
-                    $deposit = new Deposit($amount_to_be_loaded, $method, $status, $this->search_id($this->email, $this->password, $connector));
+                    $deposit = new Deposit($amount_to_be_loaded, $method, $status, $this->search_id_with_email_password($this->email, $this->password, $connector));
 
                     return $deposit->register_deposit($connector) ? true : false;
                 } else {
@@ -60,8 +61,32 @@
             }
         }
 
-        private function search_id($email, $password, $connector) {
+        public function transfer($connector, $amount_to_transfer, $receiving_number, $status) {
+            if ((!empty($connector)) && (!empty($amount_to_transfer) && (!empty($this->email)) && (!empty($this->password)) && (!empty($receiving_number)))) {
+                $this->wallet = new Wallet($this->search_id_with_email_password($this->email, $this->password, $connector));
+
+                if ($this->wallet->check_balance($connector) >= $amount_to_transfer) {
+                    if ($this->wallet->transfer($connector, $amount_to_transfer)) {
+                        $receing_wallet = new Wallet($this->search_id_with_tel_number($receiving_number, $connector));
+
+                        if ($receing_wallet->add_transfer_value($connector, $amount_to_transfer)) {
+                            $transfer = new Transfer($amount_to_transfer, $status, $this->search_id_with_email_password($this->email, $this->password, $connector), $this->search_id_with_tel_number($receiving_number, $connector));
+
+                            return $transfer->register_transfer($connector) ? true : false;
+                        }
+                    }
+                }
+            }
+        }
+
+        private function search_id_with_email_password($email, $password, $connector) {
             $sql = $connector->query("SELECT id_user FROM USERS WHERE email = '{$email}' and password = '{$password}'");
+
+            return mysqli_fetch_assoc($sql)['id_user'];
+        }
+
+        private function search_id_with_tel_number($tel_number, $connector) {
+            $sql = $connector->query("SELECT id_user FROM USERS WHERE tel_number = '{$tel_number}'");
 
             return mysqli_fetch_assoc($sql)['id_user'];
         }
