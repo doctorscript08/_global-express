@@ -14,7 +14,7 @@
         $password = $_SESSION['password'];
         $name = $user->search_name($email, $password, Connection::connect());
     } else {
-        header('Location: http://localhost/_global-express/src/');
+        header('Location: http://localhost/_global-express/');
         exit();
     }
 ?>

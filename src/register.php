@@ -47,7 +47,7 @@
             </section>
             <section class="form-parent">
                 <h1>Olá de novo!</h1>
-                <p>Já tem uma conta? <a href="index.php" rel="next" hreflang="pt-AO">Login</a></p>
+                <p>Já tem uma conta? <a href="../index.php" rel="next" hreflang="pt-AO">Login</a></p>
                 <form class="form cadastro" method="post" action="<?=$_SERVER['PHP_SELF']?>">
                     <label for="name">O seu nome</label>
                     <input type="text" name="name" id="name" class="input-user small" required>

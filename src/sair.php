@@ -2,6 +2,6 @@
     session_start();
     session_destroy();
 
-    header('Location: http://localhost/_global-express/src/');
+    header('Location: http://localhost/_global-express/');
     exit();
 ?>

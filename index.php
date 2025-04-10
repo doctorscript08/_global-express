@@ -1,7 +1,7 @@
 <?php
     session_start();
-    require_once('./php/Connection.php');
-    require_once('./php/User.php');
+    require_once('./src/php/Connection.php');
+    require_once('./src/php/User.php');
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = new User("", "", $_POST['email'], $_POST['password'], "", "", "", "");
@@ -26,7 +26,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/form.css">
+    <link rel="stylesheet" href="./src/assets/css/form.css">
     <title>LOGIN</title>
 </head>
 <body>
@@ -37,13 +37,13 @@
         <div class="box">
             <section class="ilustration">
                 <picture>
-                    <source media="(min-width: 950px)" srcset="./assets/images/undraw_credit-card-payments_y0vn-400w.png">
-                    <img src="./assets/images/undraw_credit-card-payments_y0vn-300w.png" alt="Ilustração de pagamentos digitais">
+                    <source media="(min-width: 950px)" srcset="./src/assets/images/undraw_credit-card-payments_y0vn-300w.png">
+                    <img src="./src/assets/images/undraw_credit-card-payments_y0vn-300w.png" alt="Ilustração de pagamentos digitais">
                 </picture>
             </section>
             <section class="form-parent">
                 <h1>Olá de novo!</h1>
-                <p>Não tem uma conta? <a href="register.php" rel="next" hreflang="pt-AO">Cadastrar-se</a></p>
+                <p>Não tem uma conta? <a href="./src/register.php" rel="next" hreflang="pt-AO">Cadastrar-se</a></p>
                 <form class="form" method="post" action="<?=$_SERVER['PHP_SELF']?>">
                     <label for="email">O seu endereço de email</label>
                     <input type="email" name="email" id="email" class="input-user" required>

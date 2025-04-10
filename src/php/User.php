@@ -23,7 +23,7 @@
 
                 return mysqli_num_rows($sql) > 0 ? true : false;
             } else {
-                header('Location: http://localhost/_global-express/src/');
+                header('Location: http://localhost/_global-express/');
                 exit();
             }
         }
