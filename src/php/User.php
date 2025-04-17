@@ -118,7 +118,7 @@
             }
         }
 
-        private function search_id_with_email_password($email, $password, $connector) {
+        public function search_id_with_email_password($email, $password, $connector) {
             $sql = $connector->query("SELECT id_user FROM USERS WHERE email = '{$email}' and password = '{$password}'");
 
             return mysqli_fetch_assoc($sql)['id_user'];

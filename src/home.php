@@ -6,9 +6,11 @@
     $user = new User(0, '', $_SESSION['email'], $_SESSION['password']);
 
     if (isset($_SESSION['name'], $_SESSION['email'], $_SESSION['password'])) {
+
         $name = $_SESSION['name'];
         $email = $_SESSION['email'];
         $password = $_SESSION['password'];
+
     } elseif (isset($_SESSION['email'], $_SESSION['password'])) {
         $email = $_SESSION['email'];
         $password = $_SESSION['password'];
@@ -17,6 +19,11 @@
         header('Location: http://localhost/_global-express/');
         exit();
     }
+
+    $id_user = $user->search_id_with_email_password($email, $password, Connection::connect());
+    $wallet = new Wallet($id_user);
+
+    $balance = $wallet->check_balance(Connection::connect());
 ?>
 <!DOCTYPE html>
 <html lang="pt-AO">
@@ -45,8 +52,8 @@
             <div><span class="card-number">0000 0000 0000 0000</span></div>
         </section>
         <section class="view-balance">
-            <span class="balance">0,00 AOA</span>
-            <span class="material-icons show-hide">
+            <span class="balance"><?=$balance?> AOA</span>
+            <span class="material-icons show-hidde">
                 visibility
             </span>
         </section>

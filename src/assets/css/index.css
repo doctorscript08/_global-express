@@ -122,6 +122,10 @@ a {
     text-align: center;
 }
 
+.view-balance .show-hidde {
+    cursor: pointer;
+}
+
 .view-balance .balance {
     margin-right: 10px;
 }

@@ -41,7 +41,7 @@
         <h1>Histórico de transações</h1>
 
         <h2>Carregamentos</h2>
-        <table>
+        <table class="transactions">
             <thead>
                 <th>ID</th>
                 <th>VALOR</th>
@@ -68,7 +68,7 @@
             </tbody>
         </table>
         <h2>Transferências</h2>
-        <table>
+        <table class="transactions">
             <thead>
                 <th>ID</th>
                 <th>VALOR</th>
@@ -83,7 +83,7 @@
 
                     for ($i = 0; $i < count($transfers_array); $i++) {
                         echo "
-                            <tr>
+                            <tr class='border'>
                                 <td>{$transfers_array[$i]['id_transfer']}</td>
                                 <td>{$transfers_array[$i]['amount_to_transfer']}</td>
                                 <td>{$transfers_array[$i]['status']}</td>

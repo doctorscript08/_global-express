@@ -8,3 +8,20 @@
 .body h1 {
     text-align: center;
 }
+
+.transactions {
+    border-spacing: 5px;
+    vertical-align: middle;
+    text-align: center;
+    table-layout: auto;
+}
+
+.transactions thead {
+    width: 100%;
+    color: var(--branco);
+    background-color: var(--azul-electrico);
+}
+
+.transactions tr {
+    border-bottom: 1px solid var(--azul-electrico);
+}
