@@ -65,7 +65,7 @@
             } else {
                 echo "
                     <script>
-                        alert('Falha ao efectuar carregamento!')
+                        alert('Falha ao efectuar transferência!')
                     </script>
                 ";
             }
